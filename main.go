@@ -8,17 +8,26 @@ import (
 	"github.com/buger/goterm"
 )
 
-const columns = 205
-const rows = 52
+var columns int
+var rows int
 
-var world [rows][columns]bool
-var neighbors [rows][columns]int
+var world [][]bool
+var neighbors [][]int
 
 func main() {
+	columns = goterm.Width()
+	rows = goterm.Height() - 1
+
+	world = make([][]bool,rows)
+	neighbors = make([][]int,rows)
+
 	rand.Seed(time.Now().UnixNano())
 	for x := 0; x < rows; x++ {
+		world[x] = make([]bool,columns)
+		neighbors[x] = make([]int,columns)
+
 		for y := 0; y < columns; y++ {
-			world[x][y] = rand.Intn(10) < 4 // random world
+			world[x][y] = rand.Intn(10) < 5 // random world
 		}
 	}
 
@@ -42,7 +51,7 @@ func main() {
 func printWorld(gen int) {
 	goterm.Clear()
 	goterm.MoveCursor(1, 1)
-	goterm.Printf("Generation: %d\t%d\t%d\n", gen, goterm.Width(), goterm.Height())
+	//goterm.Printf("Generation: %d\t%d\t%d\n", gen, goterm.Width(), goterm.Height())
 	for x := 0; x < rows; x++ {
 		for y := 0; y < columns; y++ {
 			if world[x][y] {
