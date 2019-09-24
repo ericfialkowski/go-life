@@ -2,7 +2,6 @@ package main
 
 import (
 	"math/rand"
-	"strings"
 	"time"
 
 	"github.com/buger/goterm"
@@ -12,40 +11,60 @@ var columns int
 var rows int
 
 var world [][]bool
+var prev [][]bool
+var prevPrev [][]bool
 var neighbors [][]int
 
 func main() {
 	columns = goterm.Width()
 	rows = goterm.Height() - 1
 
-	world = make([][]bool,rows)
-	neighbors = make([][]int,rows)
+	world = make([][]bool, rows)
+	//prev = make([][]bool,rows)
+	neighbors = make([][]int, rows)
 
 	rand.Seed(time.Now().UnixNano())
+
 	for x := 0; x < rows; x++ {
-		world[x] = make([]bool,columns)
-		neighbors[x] = make([]int,columns)
+		world[x] = make([]bool, columns)
+		//prev[x] = make([]bool, columns)
+		neighbors[x] = make([]int, columns)
+	}
 
+	for {
+		for x := 0; x < rows; x++ {
+			for y := 0; y < columns; y++ {
+				world[x][y] = rand.Intn(10) < 5 // random world
+			}
+		}
+
+		for gen := 0; gen < 500; gen++ {
+			prevPrev = prev
+			prev = world
+			printWorld(gen)
+			changed := nextGen()
+			if !changed {
+				break
+			}
+			//if gen > 2 && genSame(world,prevPrev) {
+			//	break
+			//}
+
+			time.Sleep(time.Millisecond * 100)
+		}
+		time.Sleep(time.Millisecond * 500)
+	}
+}
+
+func genSame(current [][]bool, prev [][]bool) bool {
+	for x := 0; x < rows; x++ {
 		for y := 0; y < columns; y++ {
-			world[x][y] = rand.Intn(10) < 5 // random world
+			if current[x][y] != prev[x][y] {
+				return false
+			}
 		}
 	}
-
-	//world[0][1] = true
-	//world[1][1] = true
-	//world[2][1] = true
-
-	for gen := 0; gen < 1000; gen++ {
-		printWorld(gen)
-		changed := nextGen()
-		if !changed {
-			goterm.Println(strings.Repeat("\n", 2))
-			goterm.Println("stale world")
-			goterm.Flush()
-			break
-		}
-		time.Sleep(time.Millisecond * 100)
-	}
+	return true
 }
 
 func printWorld(gen int) {
