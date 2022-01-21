@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/buger/goterm"
+	"github.com/ericfialkowski/goterm"
 )
 
 var columns int
@@ -18,13 +18,13 @@ func main() {
 	columns = goterm.Width()
 	rows = goterm.Height() - 1
 
-	world = make([][]bool,rows)
-	neighbors = make([][]int,rows)
+	world = make([][]bool, rows)
+	neighbors = make([][]int, rows)
 
 	rand.Seed(time.Now().UnixNano())
 	for x := 0; x < rows; x++ {
-		world[x] = make([]bool,columns)
-		neighbors[x] = make([]int,columns)
+		world[x] = make([]bool, columns)
+		neighbors[x] = make([]int, columns)
 
 		for y := 0; y < columns; y++ {
 			world[x][y] = rand.Intn(10) < 5 // random world
