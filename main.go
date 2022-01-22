@@ -15,8 +15,9 @@ var world [][]bool
 var neighbors [][]int
 
 func main() {
+	goterm.Clear()
 	columns = goterm.Width()
-	rows = goterm.Height() - 1
+	rows = goterm.Height()
 
 	world = make([][]bool, rows)
 	neighbors = make([][]int, rows)
@@ -27,40 +28,47 @@ func main() {
 		neighbors[x] = make([]int, columns)
 
 		for y := 0; y < columns; y++ {
-			world[x][y] = rand.Intn(10) < 5 // random world
+			world[x][y] = rand.Intn(4) == 1 // random world
 		}
 	}
 
-	//world[0][1] = true
-	//world[1][1] = true
-	//world[2][1] = true
-
-	for gen := 0; gen < 1000; gen++ {
-		printWorld(gen)
-		changed := nextGen()
-		if !changed {
-			goterm.Println(strings.Repeat("\n", 2))
-			goterm.Println("stale world")
-			goterm.Flush()
-			break
+	for {
+		for gen := 0; gen < 10; gen++ {
+			printWorld()
+			changed := nextGen()
+			if !changed {
+				goterm.Println(strings.Repeat("\n", 2))
+				goterm.Println("stale world")
+				goterm.Flush()
+				break
+			}
+			time.Sleep(time.Millisecond * 100)
 		}
-		time.Sleep(time.Millisecond * 100)
+
+		// "mutate" the world so it will keep changing
+		startX := rand.Intn(rows)
+		startY := rand.Intn(columns)
+		endX := rand.Intn(rows - startX)
+		endY := rand.Intn(columns - startY)
+		for x := startX; x < rows-endX; x++ {
+			for y := startY; y < columns-endY; y++ {
+				world[x][y] = rand.Intn(2) == 1
+			}
+		}
 	}
+
 }
 
-func printWorld(gen int) {
-	goterm.Clear()
+func printWorld() {
 	goterm.MoveCursor(1, 1)
-	//goterm.Printf("Generation: %d\t%d\t%d\n", gen, goterm.Width(), goterm.Height())
 	for x := 0; x < rows; x++ {
 		for y := 0; y < columns; y++ {
 			if world[x][y] {
-				goterm.Print("#")
+				goterm.Print(goterm.Color("#", goterm.GREEN))
 			} else {
 				goterm.Print(" ")
 			}
 		}
-		goterm.Println()
 	}
 	goterm.Flush()
 }

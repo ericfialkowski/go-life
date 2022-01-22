@@ -1,4 +1,4 @@
-github.com/ericfialkowski/goterm v0.0.0-20181115115552-c206103e1f37 h1:aTOoyPlAokTFr9Qd/vBh2DhYEEA1GYdLyURDvcxB984=
-github.com/ericfialkowski/goterm v0.0.0-20181115115552-c206103e1f37/go.mod h1:seuFajRuEXvNltj0KVoscnfe9uD8+CBxEU1udrVY2XA=
-golang.org/x/sys v0.0.0-20190919044723-0c1ff786ef13 h1:/zi0zzlPHWXYXrO1LjNRByFu8sdGgCkj2JLDdBIB84k=
-golang.org/x/sys v0.0.0-20190919044723-0c1ff786ef13/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
+github.com/ericfialkowski/goterm v1.0.5 h1:Z7DnQ0+obZ6XimaxhTDPnrfj1rzPuil0sbzxROH8W4A=
+github.com/ericfialkowski/goterm v1.0.5/go.mod h1:pJqcGqxdngKsaIK/pTA46ShAzJeT3AJpexjXNFEgQzo=
+golang.org/x/sys v0.0.0-20210331175145-43e1dd70ce54 h1:rF3Ohx8DRyl8h2zw9qojyLHLhrJpEMgyPOImREEryf0=
+golang.org/x/sys v0.0.0-20210331175145-43e1dd70ce54/go.mod h1:h1NjWce9XRLGQEsW7wpKNCjG9DtNlClVuFLEZdDNbEs=
