@@ -24,7 +24,6 @@ func main() {
 	world = make([][]bool, rows)
 	neighbors = make([][]int, rows)
 
-	rand.Seed(time.Now().UnixNano())
 	for x := 0; x < rows; x++ {
 		world[x] = make([]bool, columns)
 		neighbors[x] = make([]int, columns)
