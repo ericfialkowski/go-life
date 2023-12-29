@@ -1,11 +1,12 @@
 package main
 
 import (
+	"golife/keys"
 	"math/rand"
 	"strings"
 	"time"
 
-	"github.com/ericfialkowski/goterm"
+	"github.com/buger/goterm"
 )
 
 var columns int
@@ -15,6 +16,7 @@ var world [][]bool
 var neighbors [][]int
 
 func main() {
+	keys.ExitOnAnyKey()
 	goterm.Clear()
 	columns = goterm.Width()
 	rows = goterm.Height()
